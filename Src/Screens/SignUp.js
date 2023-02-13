@@ -113,8 +113,6 @@ const SignUp = ({ navigation }) => {
                         />
                         <CommonTextInput
                             placeholder='Last Name'
-                            // onChangeText={Setlast}
-                            // value={last}
                             error={errors.last}
                             onChangeText={text => handleOnChange(text, 'last')}
                             onFocus={() => {
@@ -142,15 +140,7 @@ const SignUp = ({ navigation }) => {
                             }}
                             keyboardType='numeric'
                         />
-                        {/* <CommonTextInput
-                            placeholder='Country'
-                            error={errors.country}
-                            onChangeText={text => handleOnChange(text, 'country')}
-                            onFocus={() => {
-                                handleError(null, 'country')
-                            }}
-
-                        /> */}
+                      
                         <Cnt
                         text={"Country"}
                         datas={anil}
