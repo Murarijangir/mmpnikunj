@@ -9,31 +9,45 @@ import CheckBox from '../Components/CheckBox';
 
 
 const Login = ({ navigation }) => {
- const [Email, setEmail] = useState('');
- const [EmailErr, setEmailErr] = useState('')
- const [Password, setPassword] = useState('');
- const [PassErr, setPassErr] = useState('')
- const [Error, setError] = useState('')
+
+  const [hidepassword, setHidepassword] = useState(true)
+  const [errors, setErrors] = useState({})
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  })
 
 
- const onSubmit=()=>{
-  if (Email=='') {
-    setEmailErr('HIII',Email)
-    
-  } else {
-      setEmailErr('')
+  const Validate = () => {
+    let valid = true;
+
+    if (!input.email) {
+      handleError('Please enter email', 'email')
+      valid = false;
+    } else if (!input.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    )) {
+      handleError('Please enter valid email', 'email')
+    }
+    if (!input.password) {
+      handleError('Please enter password', 'password');
+    }
+    else if (input.password.length < 5) {
+      handleError('Minimum password length of 5', 'password');
+    }
+    else if (input.password.length > 15) {
+      handleError('Maximum password length of 15', 'password')
+    }
+    else {
+      navigation.navigate('TabNavigation')
+    }
   }
-  
+  const handleOnChange = (text, input) => {
+    setInput(prevState => ({ ...prevState, [input]: text }));
+  };
+  const handleError = (errorMessage, input) => {
+    setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
+  };
 
-  if (Password=='') {
-     setPassErr('pss',Password)
-  } else {
-    setPassErr('')
-  }
-
-
-
- }
 
   return (
 
@@ -44,45 +58,49 @@ const Login = ({ navigation }) => {
         <Image source={Images.Login} style={styles.image3} />
       </View>
 
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.text1}>Log in</Text>
         <ScrollView>
           <View>
             <Text style={styles.text2}>Email Address/Username</Text>
+
+
+
+
             <CommonTextInput
-            style1={{marginTop:16}}
-              value={Email}
+              style1={{ marginTop: 16 }}
               placeholder='Email'
               style={styles.input}
-              // error={Error.EmailErr}
-              onChangeText={()=>{
-                setEmail('');
-                setEmailErr('')
-                // setError(Error)
-
+              error={errors.email}
+              onChangeText={text => handleOnChange(text, 'email')}
+              onFocus={() => {
+                handleError(null, 'email')
               }}
-             
-// style1={{borderBottomWidth:1}}
-            />
 
+            />
             <CommonTextInput
               style={styles.inp}
               placeholder='Password'
-              // secureTextEntry={hidepassword}
-              // error={Error.PassErr}
-              onChangeText={()=>{
-                setPassword('')
-                setPassErr('')
-                // setError(Error)
+              secureTextEntry={hidepassword}
+              onPress={() => { setHidepassword(!hidepassword) }}
+              error={errors.password}
+              onChangeText={text => handleOnChange(text, 'password')}
+              onFocus={() => {
+                handleError(null, 'password')
               }}
-            
-              // passwordIcon={(hidepassword) ? require('../Assests/Image/closeeye.png') : require('../Assests/Image/eye.jpeg')}
+              passwordIcon={(hidepassword) ? require('../Assests/Image/closeeye.png') : require('../Assests/Image/eye.jpeg')}
             />
+
+
+
+
+
+
           </View>
-          <View style={{flexDirection:'row',marginTop:21}}>
-              <CheckBox 
-              style={{marginLeft:33,marginTop:2.5}}/>
-              <Text style={{marginLeft:9,color:'#337CFF',fontSize:12,fontWeight:'500'}}>Remember me</Text>
+          <View style={{ flexDirection: 'row', marginTop: 21 }}>
+            <CheckBox
+              style={{ marginLeft: 33, marginTop: 2.5 }} />
+            <Text style={{ marginLeft: 9, color: '#337CFF', fontSize: 12, fontWeight: '500' }}>Remember me</Text>
             <Text style={styles.text3}
               onPress={() => {
                 navigation.navigate('ForgotPassword')
@@ -90,14 +108,11 @@ const Login = ({ navigation }) => {
           </View>
 
 
-
-
-
           <CommonButton
             title='Login Now'
             style={styles.btn}
-            onPress={() => { onSubmit()}}
-            // onPress={Validate}
+            onPress={Validate}
+
           />
 
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -121,9 +136,9 @@ const Login = ({ navigation }) => {
             <Text style={styles.text6}
               onPress={() => { navigation.navigate('SignUp') }}
             > Sign Up</Text>
-    <Text>{Error}</Text>
+            {/* <Text>{Error}</Text> */}
           </View>
-          </ScrollView>
+        </ScrollView>
 
       </View>
 
