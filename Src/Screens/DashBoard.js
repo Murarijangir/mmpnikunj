@@ -3,8 +3,13 @@ import React from 'react'
 import CommonArea from '../Components/CommonArea'
 import { Images } from '../Constant/Images'
 import CommonTouch from '../Components/CommonTouch'
+  
+
+
+
 
 const DashBoard = ({navigation}) => {
+
     return (
         <View style={{ flex: 1 }}>
             <CommonArea
@@ -38,9 +43,7 @@ const DashBoard = ({navigation}) => {
                      <CommonTouch
                     source={Images.Logout}
                     source1={Images.Greater}
-
                     title='Logout'
-                    onPress={()=>{navigation.navigate('Login')}} 
                     />
             </View>
 

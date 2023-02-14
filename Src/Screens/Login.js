@@ -7,15 +7,36 @@ import { Images } from '../Constant/Images';
 import { ScrollView } from 'react-native-gesture-handler';
 import CheckBox from '../Components/CheckBox';
 
-
 const Login = ({ navigation }) => {
-
   const [hidepassword, setHidepassword] = useState(true)
   const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
     email: "",
     password: "",
   })
+
+//   const handleLogin = async () => {
+//     try {
+//       if (email.length > 0 && password.length > 0) {
+//         const isUserLogin = await auth().signInWithEmailAndPassword(
+//           email,
+//           password);
+//         console.log(isUserLogin);
+//         setMessage('')
+// navigation.dispatch(StackActions.replace('TabNavigation'))
+//         // navigation.dispatch('TabNavigation', {
+//         //   email: isUserLogin.user.email,
+//         //   uid: isUserLogin.user.uid,
+//         // });
+//       } else {
+//         alert("please enter all data");
+//       }
+
+//     } catch (err) {
+
+//       console.log(err)
+//     }
+//   }
 
 
   const Validate = () => {
@@ -53,7 +74,7 @@ const Login = ({ navigation }) => {
 
     <View style={styles.mainContainer}>
       <StatusBar barStyle='dark-content' backgroundColor='#337CFF' />
-      <View>
+      <View style={{}}>
         <CommonView />
         <Image source={Images.Login} style={styles.image3} />
       </View>
@@ -64,18 +85,15 @@ const Login = ({ navigation }) => {
           <View>
             <Text style={styles.text2}>Email Address/Username</Text>
 
-
-
-
             <CommonTextInput
               style1={{ marginTop: 16 }}
               placeholder='Email'
               style={styles.input}
               error={errors.email}
-              onChangeText={text => handleOnChange(text, 'email')}
-              onFocus={() => {
-                handleError(null, 'email')
-              }}
+               onChangeText={text => handleOnChange(text, 'email')}
+            onFocus={() => {
+              handleError(null, 'email')
+           }}
 
             />
             <CommonTextInput
@@ -90,10 +108,6 @@ const Login = ({ navigation }) => {
               }}
               passwordIcon={(hidepassword) ? require('../Assests/Image/closeeye.png') : require('../Assests/Image/eye.jpeg')}
             />
-
-
-
-
 
 
           </View>
@@ -112,7 +126,6 @@ const Login = ({ navigation }) => {
             title='Login Now'
             style={styles.btn}
             onPress={Validate}
-
           />
 
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -136,7 +149,6 @@ const Login = ({ navigation }) => {
             <Text style={styles.text6}
               onPress={() => { navigation.navigate('SignUp') }}
             > Sign Up</Text>
-            {/* <Text>{Error}</Text> */}
           </View>
         </ScrollView>
 

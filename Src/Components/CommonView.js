@@ -19,13 +19,15 @@ export default CommonView
 
 const styles = StyleSheet.create({
     image1: {
-      height: 170,
+      height: 180,
       width: 300
     },
     image2: {
-      height: 160,
+      height: 155,
       width: 420,
-      marginTop: -200,
-      alignSelf: 'center'
+      position:'absolute',
+      // marginTop: -200,
+      alignSelf: 'center',
+      // marginTop:15
     }
 })

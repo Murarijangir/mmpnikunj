@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Images } from '../Constant/Images'
 
 const CommonTextInput = ({
-  // value,
+  value,
   // error,
   placeholder = '',
   onChangeText = () => { },
@@ -18,7 +18,7 @@ const CommonTextInput = ({
   source,
   source2,
   style1 = {},
-  onFocus = () => { },
+  // onFocus = () => { },
   style2 = {},
   style4={},
 }) => {
@@ -30,17 +30,17 @@ const CommonTextInput = ({
         <Image source2={source2} style={[styles.img, { ...style2 }]} />
         <TextInput
           placeholder={placeholder}
-          // value={value}
+          value={value}
           onChangeText={onChangeText}
           style={[styles.input, { ...style }]}
           placeholderTextColor='#878787'
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           source={source}
-          onFocus={() => {
-            onFocus();
-            setIsFocused(true)
-          }}
+          // onFocus={() => {
+          //   onFocus();
+          //   setIsFocused(true)
+          // }}
          
         />
         {/* <View style={{ marginTop: 5, marginEnd: 15}}> */}

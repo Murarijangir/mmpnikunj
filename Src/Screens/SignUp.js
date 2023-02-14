@@ -101,8 +101,6 @@ const SignUp = ({ navigation }) => {
                     <View>
                         <CommonTextInput
                             placeholder='First Name'
-                            // value={name}
-                            // onChangeText={SetName}
                             style={styles.input}
                             error={errors.name}
                             onChangeText={text => handleOnChange(text, 'name')}
@@ -122,14 +120,12 @@ const SignUp = ({ navigation }) => {
                         />
                         <CommonTextInput
                             placeholder='Email Address'
-                            // onChangeText={setEmail}
                             error={errors.email}
                             onChangeText={text => handleOnChange(text, 'email')}
                             onFocus={() => {
                                 handleError(null, 'email')
                             }}
 
-                        // value={email}
                         />
                         <CommonTextInput
                             placeholder='Phone Number'
@@ -156,13 +152,10 @@ const SignUp = ({ navigation }) => {
                                 handleError(null, 'password')
                             }}
 
-                            // passwordIcon={(hidepassword)? source={require(Images.CloseEye)}:source={require(Images.Eye)}}
                             passwordIcon={(hidepassword) ? require('../Assests/Image/closeeye.png') : require('../Assests/Image/eye.jpeg')}
                         />
                         <CommonTextInput
                             placeholder='Confirm Password'
-                            // onChangeText={setConPassword}
-                            // value={conpassword}
                             secureTextEntry={hide}
                             onPress={() => { setHide(!hide) }}
                             error={errors.confirmPassword}

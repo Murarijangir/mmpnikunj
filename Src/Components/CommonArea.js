@@ -1,7 +1,7 @@
 import { View, Text, StatusBar, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Images } from '../Constant/Images'
-
+import { heightPercentageToDP as hp,widthPercentageToDP as wp } from 'react-native-responsive-screen'
 const CommonArea = ({
   source2,
   source3,
@@ -43,8 +43,9 @@ const CommonArea = ({
 export default CommonArea
 const styles = StyleSheet.create({
   commons: {
-    height: 200,
-    width: 415,
+    height: hp('25%'),
+    width:wp('200%'),
+  
     position: 'absolute'
   },
   text: {

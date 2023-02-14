@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "225968973641",
+    "project_id": "moneymatch-91c01",
+    "storage_bucket": "moneymatch-91c01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225968973641:android:c9356e8e0d679a43dc5c98",
+        "android_client_info": {
+          "package_name": "com.moneymatching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225968973641-hl3jdsb2sjj8d7dsmj74d22dt2rr8trp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moneymatching",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "225968973641-tsn73c6d9n1b73a9617fbslnb06sjn3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfsrUpqr6_ltclZCpSD1Z0b-i7lVJwqzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225968973641-tsn73c6d9n1b73a9617fbslnb06sjn3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
