@@ -1,23 +1,24 @@
 import { View, Text, StyleSheet, StatusBar, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CommonTextInput from '../Components/CommonTextInput'
 import CommonButton from '../Components/CommonButton'
 import { Images } from '../Constant/Images'
 import CommonView from '../Components/CommonView'
 import CheckBox from '../Components/CheckBox'
 import Cnt from './Cnt'
+import auth from '@react-native-firebase/auth'
 
-const anil =[
+const anil = [
     {
-        Language : "India" ,
+        Language: "India",
         src: require('../Assests/Image/India.png')
     },
     {
-        Language : "Usa" ,
-        src:require('../Assests/Image/Usa.png'),
+        Language: "Usa",
+        src: require('../Assests/Image/Usa.png'),
     },
     {
-        Language : "Canada"
+        Language: "Canada"
     },
 ]
 
@@ -28,63 +29,91 @@ const SignUp = ({ navigation }) => {
     const [hide, setHide] = useState(true)
 
 
-    const [input, setInput] = useState({
-        email: "",
-        password: "",
-        name: "",
-        last: "",
-        number: "",
-        country: "",
-        confirmPassword: "",
+    // const [input, setInput] = useState({
+    //     email: "",
+    //     password: "",
+    //     name: "",
+    //     last: "",
+    //     number: "",
+    //     country: "",
+    //     confirmPassword: "",
 
-    })
-    const [errors, setErrors] = useState({})
+    // })
+    // const [errors, setErrors] = useState({})
 
-    const Validate = () => {
-        let valid = true;
-        if (!input.email) {
-            handleError('Please enter email', 'email')
-            valid = false;
-        } else if (!input.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        )) {
-            handleError('Please enter valid email', 'email')
-        }
-        if (!input.name) {
-            handleError('Please enter name', 'name')
-        }
-        if (!input.last) {
-            handleError('Please enter last name', 'last')
-        }
-        if (!input.number) {
-            handleError('Please enter phone number', 'number');
-        } else if (input.number.length < 10) {
-            handleError('Please enter valid number','number');
-        }
-        if (!input.country) {
-            handleError('Please enter country name', 'country')
-        }
-        if (!input.password) {
-            handleError('Please enter password', 'password');
-        } else if (input.password.length < 5) {
-            handleError('Minimum password length of 5', 'password');
-        } else if (input.password.length > 15) {
-            handleError('Maximum password length of 15', 'password')
-        }
-        if (!input.confirmPassword) {
-            handleError('Re type password same as password', 'confirmPassword');
-        } else if (input.confirmPassword.length < 5) {
-            handleError('Min password length of 5', 'confirmPassword');
-        }
-        else {
-            navigation.navigate('TabNavigation')
+    // const Validate = () => {
+    //     let valid = true;
+    //     if (!input.email) {
+    //         handleError('Please enter email', 'email')
+    //         valid = false;
+    //     } else if (!input.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    //     )) {
+    //         handleError('Please enter valid email', 'email')
+    //     }
+    //     if (!input.name) {
+    //         handleError('Please enter name', 'name')
+    //     }
+    //     if (!input.last) {
+    //         handleError('Please enter last name', 'last')
+    //     }
+    //     if (!input.number) {
+    //         handleError('Please enter phone number', 'number');
+    //     } else if (input.number.length < 10) {
+    //         handleError('Please enter valid number','number');
+    //     }
+    //     if (!input.country) {
+    //         handleError('Please enter country name', 'country')
+    //     }
+    //     if (!input.password) {
+    //         handleError('Please enter password', 'password');
+    //     } else if (input.password.length < 5) {
+    //         handleError('Minimum password length of 5', 'password');
+    //     } else if (input.password.length > 15) {
+    //         handleError('Maximum password length of 15', 'password')
+    //     }
+    //     if (!input.confirmPassword) {
+    //         handleError('Re type password same as password', 'confirmPassword');
+    //     } else if (input.confirmPassword.length < 5) {
+    //         handleError('Min password length of 5', 'confirmPassword');
+    //     }
+    //     else {
+    //         navigation.navigate('TabNavigation')
+    //     }
+    // }
+    // const handleOnChange = (text, input) => {
+    //     setInput(prevState => ({ ...prevState, [input]: text }));
+    // };
+    // const handleError = (errorMessage, input) => {
+    //     setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
+    // };
+    const [name, setName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [number, setNumber] = useState('')
+    const [password, setPassword] = useState('')
+    const [message, setMessage] = useState('')
+
+    const handleSignUp = async () => {
+        try {
+            if (email.length > 0 && password.length > 0 && name.length > 0 && number.length > 0 && lastName.length > 0) {
+                const isuserCreated = await auth().createUserWithEmailAndPassword(
+                    email,
+                    password,
+                    name,
+                    lastName,
+                    number,);
+                console.log(isuserCreated);
+                navigation.navigate("TabNavigation")
+            } else {
+                alert('please enter all data')
+            }
+        } catch (err) {
+            console.log(err);
+            setMessage(err.message)
         }
     }
-    const handleOnChange = (text, input) => {
-        setInput(prevState => ({ ...prevState, [input]: text }));
-    };
-    const handleError = (errorMessage, input) => {
-        setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
-    };
+
+   
 
 
     return (
@@ -102,59 +131,66 @@ const SignUp = ({ navigation }) => {
                         <CommonTextInput
                             placeholder='First Name'
                             style={styles.input}
-                            error={errors.name}
-                            onChangeText={text => handleOnChange(text, 'name')}
-                            onFocus={() => {
-                                handleError(null, 'name')
-                            }}
+                            // error={errors.name}
+                            // onChangeText={text => handleOnChange(text, 'name')}
+                            // onFocus={() => {
+                            //     handleError(null, 'name')
+                            // }}
+                            value={name}
+                            onChangeText={value => setName(value)}
 
                         />
                         <CommonTextInput
                             placeholder='Last Name'
-                            error={errors.last}
-                            onChangeText={text => handleOnChange(text, 'last')}
-                            onFocus={() => {
-                                handleError(null, 'last')
-                            }}
-
+                            // error={errors.last}
+                            // onChangeText={text => handleOnChange(text, 'last')}
+                            // onFocus={() => {
+                            //     handleError(null, 'last')
+                            // }}
+                            onChangeText={value => setLastName(value)}
+                            value={lastName}
                         />
                         <CommonTextInput
                             placeholder='Email Address'
-                            error={errors.email}
-                            onChangeText={text => handleOnChange(text, 'email')}
-                            onFocus={() => {
-                                handleError(null, 'email')
-                            }}
-
+                            // error={errors.email}
+                            // onChangeText={text => handleOnChange(text, 'email')}
+                            // onFocus={() => {
+                            //     handleError(null, 'email')
+                            // }}
+                            value={email}
+                            onChangeText={value => setEmail(value)}
                         />
                         <CommonTextInput
                             placeholder='Phone Number'
-                            error={errors.number}
-                            onChangeText={text => handleOnChange(text, 'number')}
-                            onFocus={() => {
-                                handleError(null, 'number')
-                            }}
+                            // error={errors.number}
+                            // onChangeText={text => handleOnChange(text, 'number')}
+                            // onFocus={() => {
+                            //     handleError(null, 'number')
+                            // }}
+                            value={number}
+                            onChangeText={value => setNumber(value)}
                             keyboardType='numeric'
                         />
-                      
+
                         <Cnt
-                        text={"Country"}
-                        datas={anil}
-                         
+                            text={"Country"}
+                            datas={anil}
+
                         />
                         <CommonTextInput
                             placeholder='Password'
                             secureTextEntry={hidepassword}
                             onPress={() => { setHidepassword(!hidepassword) }}
-                            error={errors.password}
-                            onChangeText={text => handleOnChange(text, 'password')}
-                            onFocus={() => {
-                                handleError(null, 'password')
-                            }}
-
+                            // error={errors.password}
+                            // onChangeText={text => handleOnChange(text, 'password')}
+                            // onFocus={() => {
+                            //     handleError(null, 'password')
+                            // }}
+                            value={password}
+                            onChangeText={value => setPassword(value)}
                             passwordIcon={(hidepassword) ? require('../Assests/Image/closeeye.png') : require('../Assests/Image/eye.jpeg')}
                         />
-                        <CommonTextInput
+                        {/* <CommonTextInput
                             placeholder='Confirm Password'
                             secureTextEntry={hide}
                             onPress={() => { setHide(!hide) }}
@@ -164,7 +200,7 @@ const SignUp = ({ navigation }) => {
                             onFocus={() => {
                                 handleError(null, 'confirmPassword')
                             }}
-                        />
+                        /> */}
                     </View>
                     <View style={{ flexDirection: 'row', }}>
 
@@ -176,9 +212,11 @@ const SignUp = ({ navigation }) => {
                     <CommonButton
                         title='Submit Now'
                         style={styles.btn}
-                        // onPress={() => { navigation.navigate('TabNavigation') }}
-                        onPress={Validate}
+                        onPress={() => handleSignUp()}
+                    // onPress={() => { navigation.navigate('TabNavigation') }}
+                    // onPress={Validate}
                     />
+                    <Text>{message}</Text>
                     <View style={{ justifyContent: 'center', alignItems: 'center', }}>
 
                         <Text style={styles.text4}>or</Text>
@@ -190,7 +228,8 @@ const SignUp = ({ navigation }) => {
                                 style={styles.apple} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity 
+                        >
                             <Image source={Images.Google}
                                 style={styles.google} />
                         </TouchableOpacity>

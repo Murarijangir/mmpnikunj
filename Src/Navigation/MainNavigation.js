@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import auth from '@react-native-firebase/auth'
+// import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { NavigationContainer, StackActions, useRoute } from "@react-navigation/native";
 
 
-import Login from "../Screens/Login";
+import LoginScreen from "../Screens/LoginScreen";
 import ForgotPassword from "../Screens/ForgotPassword";
 import UpdatePassword from "../Screens/UpdatePassword";
 import SignUp from "../Screens/SignUp";
@@ -28,25 +28,41 @@ import PostRR from "../Screens/PostRR"
 import Mypost from "../Screens/Mypost";
 import MatchFound from '../Screens/MatchFound';
 
-
+import Auth from '@react-native-firebase/auth'
 
 const Stack = createNativeStackNavigator();
 
-function MainNavigation({navigation}) {
-  
+function MainNavigation({ navigation }) {
+    const [isUserLogin, setIsUserLogin] = useState(false)
+    
+    Auth().onAuthStateChanged((user) => {
+        if (user !== null) {
+            setIsUserLogin(true);
+        }else{
+            setIsUserLogin(false);
+        }
+    })
 
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">    
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="TabNavigation" component={TabNavigation} />
+            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
+                {/* <Stack.Group> */}
+                {!isUserLogin ? (
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    ) : null} 
+               
+                 
+                    <Stack.Screen name="TabNavigation" component={TabNavigation} />
+                    {!isUserLogin ? (
+                <Stack.Screen name="SignUp" component={SignUp} />
+                ) : null}
+{/* </Stack.Group> */}
                 <Stack.Screen name="CreateProfile" component={CreateProfile} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
                 <Stack.Screen name="Otp" component={Otp} />
                 <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
-                <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="DashBoard" component={DashBoard} />
                 <Stack.Screen name="RecentMatch" component={RecentMatch} />
                 <Stack.Screen name="PaymentManagement" component={PaymentManagement} />

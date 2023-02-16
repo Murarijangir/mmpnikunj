@@ -1,15 +1,28 @@
 import { View, Text,StyleSheet } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import CommonArea from '../Components/CommonArea'
 import { Images } from '../Constant/Images'
 import CommonTouch from '../Components/CommonTouch'
-  
+  import Auth from '@react-native-firebase/auth'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 
 
 
 const DashBoard = ({navigation}) => {
-
+    const [loggedIn, setloggedIn] = useState(false)
+    const [userInfo, setuserInfo] = useState([])
+    const signOut = async () => {
+        try {
+          await GoogleSignin.revokeAccess();
+          await GoogleSignin.signOut();
+          setloggedIn(false);
+          setuserInfo([]);
+          navigation.navigate('Login')
+        } catch (error) {
+          console.error(error);
+        }
+      };
     return (
         <View style={{ flex: 1 }}>
             <CommonArea
@@ -44,6 +57,18 @@ const DashBoard = ({navigation}) => {
                     source={Images.Logout}
                     source1={Images.Greater}
                     title='Logout'
+                    onPress={signOut}
+
+
+                    // onPress={async ()  =>{
+                    //     await Auth().signOut()
+                    //     // await GoogleSignin.signOut();
+
+                    //     navigation.navigate('Login')
+                    // }}
+
+
+
                     />
             </View>
 
