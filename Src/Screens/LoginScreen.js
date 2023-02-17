@@ -1,5 +1,5 @@
 import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import CommonTextInput from '../Components/CommonTextInput';
 import CommonButton from '../Components/CommonButton';
 import CommonView from '../Components/CommonView';
@@ -9,7 +9,8 @@ import CheckBox from '../Components/CheckBox';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database'
 
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin'; //here
+import { GoogleSignin, statusCodes, } from '@react-native-google-signin/google-signin'; //here
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 
 const Login = ({ navigation }) => {
@@ -50,101 +51,126 @@ const Login = ({ navigation }) => {
   // const handleError = (errorMessage, input) => {
   //   setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
   // };
-const [email, setEmail] = useState('')
-const [password,setpassword] = useState('')
-const [message, setMessage] = useState('')
-const [loggedIn, setloggedIn] = useState(false)
-const [userInfo, setuserInfo] = useState([])
+  const [email, setEmail] = useState('')
+  const [password, setpassword] = useState('')
+  const [message, setMessage] = useState('')
+  const [loggedIn, setloggedIn] = useState(false)
+  const [userInfo, setuserInfo] = useState([])
 
-const handleLogin = async()=>{
-  try{
-    if (email.length>0 && password.length>0){
+  const handleLogin = async () => {
+    try {
+      if (email.length > 0 && password.length > 0) {
 
-    const isUserLogin = await auth().signInWithEmailAndPassword(
-      email,
-      password
-      );
-      setMessage('');
-    console.log(isUserLogin);
- navigation.navigate("TabNavigation")
-    }else{
-      alert('please enter all data')
-    }
-  }catch(err){
-    console.log(err);
-  }
-} 
-const googleLoginIn = async () => {
-  try {
-    await GoogleSignin.hasPlayServices();
-    const {accessToken, idToken} = await GoogleSignin.signIn();
-    setloggedIn(true);
-    navigation.navigate('TabNavigation')
-  } catch (error) {
-    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-
-      alert('Cancel');
-    } else if (error.code === statusCodes.IN_PROGRESS) {
-      alert('Signin in progress');
-    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      alert('PLAY_SERVICES_NOT_AVAILABLE');
-    } else {
+        const isUserLogin = await auth().signInWithEmailAndPassword(
+          email,
+          password
+        );
+        setMessage('');
+        console.log(isUserLogin);
+        navigation.navigate("TabNavigation")
+      } else {
+        alert('please enter all data')
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
-};
 
-// const signOut = async () => {
-//   try {
-//     await GoogleSignin.revokeAccess();
-//     await GoogleSignin.signOut();
-//     setloggedIn(false);
-//     setuserInfo([]);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  // facebook authenticati0oon
 
 
+  const facebookLogin = async () =>{
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (result.isCancelled) {
+        throw 'User cancelled the login process';
+      }
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        throw 'Something went wrong obtaining access token';
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+      return auth().signInWithCredential(facebookCredential);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  GoogleSignin.configure({
+    webClientId:
+      // '260759292128-4h94uja4bu3ad9ci5qqagubi6k1m0jfv.apps.googleusercontent.com',
+      '225968973641-tsn73c6d9n1b73a9617fbslnb06sjn3i.apps.googleusercontent.com'
+  });
 
 
+    const googleLogin=async()=> {
+      try{
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      return auth().signInWithCredential(googleCredential);
+      }catch (error){
+        alert(error)
+      }
+    }
+
+  // google login
+  // const googleLogin = async () => {
+  //   try {
+  //     await GoogleSignin.hasPlayServices();
+  //     const { accessToken, idToken } = await GoogleSignin.signIn();
+  //     setloggedIn(true);
+  //     navigation.navigate('TabNavigation')
+  //   } catch (error) {
+  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+
+  //       alert('Cancel');
+  //     } else if (error.code === statusCodes.IN_PROGRESS) {
+  //       alert('Signin in progress');
+  //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //       alert('PLAY_SERVICES_NOT_AVAILABLE');
+  //     } else {
+  //     }
+  //   }
+  // };
 
 
+  //google login
 
+  // useEffect(() => {
 
-//google login
+  //   GoogleSignin.configure()
 
-useEffect(() => {
+  // }, [])
 
-  GoogleSignin.configure()
+  // const googleLogin = async () => {
+  //   try {
+  //       await GoogleSignin.hasPlayServices();
+  //       const userInfo = await GoogleSignin.signIn();
+  //       navigation.navigate("TabNavigation")
 
-}, [])
+  //       console.log("user info", userInfo);
+  //   } catch (error) {
+  //       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //           // user cancelled the login flow
+  //           console.log(error);
+  //       } else if (error.code === statusCodes.IN_PROGRESS) {
+  //           // operation (e.g. sign in) is in progress already
+  //           console.log(error);
 
-// const googleLoginIn = async () => {
-//   try {
-//       await GoogleSignin.hasPlayServices();
-//       const userInfo = await GoogleSignin.signIn();
-//       navigation.navigate("TabNavigation")
+  //       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //           // play services not available or outdated
+  //           console.log(error);
 
-//       console.log("user info", userInfo);
-//   } catch (error) {
-//       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-//           // user cancelled the login flow
-//           console.log(error);
-//       } else if (error.code === statusCodes.IN_PROGRESS) {
-//           // operation (e.g. sign in) is in progress already
-//           console.log(error);
+  //       } else {
+  //           // some other error happened
+  //           console.log(error);
 
-//       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-//           // play services not available or outdated
-//           console.log(error);
-
-//       } else {
-//           // some other error happened
-//           console.log(error);
-
-//       }
-//   }
-// };
+  //       }
+  //   }
+  // };
 
 
 
@@ -169,13 +195,13 @@ useEffect(() => {
               style={styles.input}
               // error={errors.email}
               value={email}
-              onChangeText={value=>setEmail(value)}
+              onChangeText={value => setEmail(value)}
 
 
-              // onChangeText={text => handleOnChange(text, 'email')}
-              // onFocus={() => {
-              //   handleError(null, 'email')
-              // }}
+            // onChangeText={text => handleOnChange(text, 'email')}
+            // onFocus={() => {
+            //   handleError(null, 'email')
+            // }}
             />
             <CommonTextInput
               style={styles.inp}
@@ -184,7 +210,7 @@ useEffect(() => {
               onPress={() => { setHidepassword(!hidepassword) }}
               // error={errors.password}
               value={password}
-              onChangeText={value=>setpassword(value)}
+              onChangeText={value => setpassword(value)}
 
 
               // onChangeText={text => handleOnChange(text, 'password')}
@@ -201,10 +227,10 @@ useEffect(() => {
               style={{ marginLeft: 33, marginTop: 2.5 }} />
             <Text style={{ marginLeft: 9, color: '#337CFF', fontSize: 12, fontWeight: '500' }}>Remember me</Text>
             <Text style={styles.text3}
-              // onPress={() => {
-              //   navigation.navigate('ForgotPassword')
-              // }}
-              >Forgot password?</Text>
+            // onPress={() => {
+            //   navigation.navigate('ForgotPassword')
+            // }}
+            >Forgot password?</Text>
           </View>
 
 
@@ -212,24 +238,25 @@ useEffect(() => {
             title='Login Now'
             style={styles.btn}
             // onPress={Validate}
-          onPress={() => handleLogin()} 
+            onPress={() => handleLogin()}
           />
- <Text>{message}</Text>
+          <Text>{message}</Text>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.text4}>or</Text>
           </View>
 
           <View style={styles.image}>
             <TouchableOpacity
+            onPress={facebookLogin}
             //  onPress={() => { navigation.navigate('Cnt') }}
-              >
+            >
               <Image source={Images.Apple}
                 style={styles.apple}
               />
             </TouchableOpacity>
 
-            <TouchableOpacity 
-            onPress={googleLoginIn} 
+            <TouchableOpacity
+              onPress={googleLogin}
             >
               <Image source={Images.Google}
                 style={styles.google} />
@@ -241,7 +268,7 @@ useEffect(() => {
               onPress={() => { navigation.navigate('SignUp') }}
             > Sign Up</Text>
           </View>
-{/* <TouchableOpacity style={{backgroundColor:'red',width:50,padding:10,alignSelf:'center'}}
+          {/* <TouchableOpacity style={{backgroundColor:'red',width:50,padding:10,alignSelf:'center'}}
 onPress={signOut}>
   <Text>logout</Text>
 </TouchableOpacity> */}

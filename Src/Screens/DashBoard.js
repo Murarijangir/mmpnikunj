@@ -57,14 +57,20 @@ const DashBoard = ({navigation}) => {
                     source={Images.Logout}
                     source1={Images.Greater}
                     title='Logout'
-                    onPress={signOut}
+                  
+                   onPress={async ()  =>{
+                         await Auth().signOut()
+                    navigation.navigate('Login')
+
+                    }}  
 
 
-                    // onPress={async ()  =>{
-                    //     await Auth().signOut()
-                    //     // await GoogleSignin.signOut();
+                    //  onPress={async ()=>{
+                    // await GoogleSignin.signOut();
+                    // // await Auth().signOut()
 
-                    //     navigation.navigate('Login')
+                    // navigation.navigate('Login')
+
                     // }}
 
 

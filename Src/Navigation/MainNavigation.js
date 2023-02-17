@@ -52,12 +52,13 @@ function MainNavigation({ navigation }) {
                     <Stack.Screen name="Login" component={LoginScreen} />
                     ) : null} 
                
-                 
+
                     <Stack.Screen name="TabNavigation" component={TabNavigation} />
-                    {!isUserLogin ? (
+                {!isUserLogin ? (
+
                 <Stack.Screen name="SignUp" component={SignUp} />
                 ) : null}
-{/* </Stack.Group> */}
+                {/* </Stack.Group> */}
                 <Stack.Screen name="CreateProfile" component={CreateProfile} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
