@@ -55,4 +55,8 @@ export const Images = {
     UnCheck:require('../Assests/Image/uncheck.png'),
     CheckBtn:require('../Assests/Image/checked.png'),
     Profiles:require('../Assests/Image/profiles.png'),
+    First:require('../Assests/Image/second.png'),
+    Second:require('../Assests/Image/first.png'),
+    High:require('../Assests/Image/hhhh.png'),
+    Highh:require('../Assests/Image/hhhhh.png'),
 }
