@@ -2,15 +2,15 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import CommonArea from '../Components/CommonArea'
 import { Images } from '../Constant/Images'
-import { TextInput } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import CommonButton from '../Components/CommonButton'
 
 const PostR = ({ navigation }) => {
     const [show, setShow] = useState(true)
-      const[active,setActive]=useState(true)
-const handleClick =( )=>{
-    setActive(!active)
-}
+    // const [active, setActive] = useState(true)
+    const onChange= () => {
+        setShow(!show)
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -18,21 +18,22 @@ const handleClick =( )=>{
                 title='Post Requirement'
                 source2={Images.Hembarg}
                 style={styles.header} />
-
+<ScrollView>
             <View style={styles.container}>
-                <View style={{ marginTop: 30, flexDirection: 'row', height: 42, backgroundColor: '#EBEBEB', marginHorizontal: 33, alignItems: 'center', borderRadius: 10, justifyContent: 'space-evenly' }}>
-                    <CommonButton 
-                    style={{ height: 36, width: 160, marginTop: 0, marginHorizontal: 0 }}
+                <View style={{ marginTop: 30, flexDirection: 'row',padding:3, marginHorizontal: 33, alignItems: 'center', borderRadius: 10, justifyContent: 'space-evenly',backgroundColor:'#EBEBEB' }}>
+                    <CommonButton
+                        style={{ padding:10,width:'50%', marginTop: 0, marginHorizontal: 0,backgroundColor: show?  "#517FFF":"#EBEBEB" }}
                         title='Send Money'
-                        style1={{fontSize:14,fontWeight:'400'}}
-                        onPress={() => { setShow(true) }}
-                        // onPress={handleClick}
+                        style1={{ fontSize: 14, fontWeight: '400' ,color: show?"#FFF0F0": "#969393" }}
+                        onPress={() => { onChange(true) }}
+                    // onPress={handleClick}
 
                     />
-                    <CommonButton style={{ height: 36, width: 160, marginTop: 0, marginHorizontal: 0 }}
+                    <CommonButton style={{ padding:10, width:'50%', marginTop: 0, marginHorizontal: 0, backgroundColor:  show? "#EBEBEB": "#517FFF"  }}
                         title='Recieve Money'
-                        style1={{ fontSize: 14, fontWeight: '400' }}
-                        onPress={() => { setShow(false) }}
+                        style1={{ fontSize: 14, fontWeight: '400',color: show? "#969393":"#FFF0F0"  }}
+                        onPress={() => { onChange(false) }}
+                    // style={{backgroundColor:'#FFFFFF'}}
                     />
                 </View>
 
@@ -89,21 +90,14 @@ const handleClick =( )=>{
                             </View>
                             <CommonButton
                                 title='Submit Now'
-                                style={{ marginHorizontal: 16, marginTop: 113 }}
+                                style={{ marginHorizontal: 16, marginTop:113,marginBottom:15, }}
                                 style1={{ fontSize: 16, fontWeight: '800' }}
-                                onPress={()=>{navigation.navigate('PostR')}} />
+                                onPress={() => { navigation.navigate('PostR') }} 
+                                />
                         </View>
                     </View>
 
                     :
-
-
-
-
-
-
-
-
                     <View>
                         <Text style={styles.text}>Where do you want to Recieve Money</Text>
 
@@ -150,13 +144,14 @@ const handleClick =( )=>{
                         </View>
                         <CommonButton
                             title='Submit Now'
-                            style={{ marginHorizontal: 16, marginTop: 113 }}
+                            style={{ marginHorizontal: 16, marginTop: 113,marginBottom:15 }}
                             style1={{ fontSize: 16, fontWeight: '800' }} />
 
                     </View>
                 }
 
             </View>
+            </ScrollView>
         </View>
     )
 }
@@ -228,7 +223,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 42,
         backgroundColor: '#FFFFFF',
-        width: 127,
+        width: '45%',
+    // paddingHorizontal:100,
         justifyContent: 'space-around',
         borderRadius: 10
     }

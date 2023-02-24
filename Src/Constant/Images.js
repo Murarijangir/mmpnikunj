@@ -59,4 +59,16 @@ export const Images = {
     Second:require('../Assests/Image/first.png'),
     High:require('../Assests/Image/hhhh.png'),
     Highh:require('../Assests/Image/hhhhh.png'),
+    Back:require('../Assests/Image/back.png'),
+    PhotoA:require('../Assests/Image/photoa.png'),
+    PhotoB:require('../Assests/Image/photob.png'),
+    PhotoC:require('../Assests/Image/photoc.png'),
+    PhotoD:require('../Assests/Image/photod.png'),
+    PhotoAA:require('../Assests/Image/photoaa.png'),
+    PhotoBB:require('../Assests/Image/photobb.png'),
+    PhotoCC:require('../Assests/Image/photocc.png'),
+    PhotoDD:require('../Assests/Image/photodd.png'),
+    Cross:require('../Assests/Image/crosss.png'),
+    SendA:require('../Assests/Image/sendd.png'),
+
 }

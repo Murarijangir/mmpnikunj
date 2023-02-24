@@ -20,7 +20,7 @@ const UpdatePassword = ({ navigation }) => {
                 <Text style={styles.text2}>Enter the verification code we just sent you {"\n"}
                     on your phone number
                 </Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 35, marginTop: 21 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginHorizontal: 25, marginTop: 21 }}>
                     <CommonTextInput keyboardType='numeric' style={styles.input} />
                     <CommonTextInput keyboardType='numeric' style={styles.input} />
                     <CommonTextInput keyboardType='numeric' style={styles.input} />
@@ -68,11 +68,13 @@ const styles = StyleSheet.create({
         color: '#777777'
     },
     input: {
-        height: 60,
-        width: 60,
+        // height: 60,
+        // width: 100,
         borderWidth: 1,
         textAlign: 'center',
-        paddingStart: 0,
+        // paddingStart: 0,
+        paddingVertical:10,
+        paddingHorizontal:40,
         marginHorizontal: 0,
         borderRadius: 15,
         borderColor: '#C4C4C4'

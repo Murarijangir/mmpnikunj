@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#337CFF',
         borderRadius: 15,
-        height: 52,
+        // height: 52,
+        padding:16,
         marginTop: 35,
         marginHorizontal: 24
     },
@@ -37,9 +38,9 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20,
         textAlign: 'center',
-        fontWeight: '800'
+        fontWeight: '800',
 
-
+// padding:17
 
     }
 

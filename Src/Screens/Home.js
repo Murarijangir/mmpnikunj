@@ -88,9 +88,11 @@ const Home = ({ navigation }) => {
                 </View>
                 <CommonButton
                     title='Look for A Match'
-                    style={{ marginHorizontal: 16 }}
+                    style={{ marginHorizontal: 16, }}
                     style1={styles.btn}
-                    onPress={()=>{navigation.navigate('MatchFound')}}
+                    // onPress={()=>{navigation.navigate('MatchFound')}}
+                                onPress={() => { navigation.navigate('PostRR') }}
+
                 />
 
                 <Text style={styles.text}>Recent Matches</Text>
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         fontSize: 15,
-        marginHorizontal: 16
+        // marginHorizontal: 16
     },
     text: {
         fontSize: 15,

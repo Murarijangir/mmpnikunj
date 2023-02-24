@@ -178,7 +178,7 @@ const Login = ({ navigation }) => {
 
     <View style={styles.mainContainer}>
       <StatusBar barStyle='dark-content' backgroundColor='#337CFF' />
-      <View style={{}}>
+      <View>
         <CommonView />
         <Image source={Images.Login} style={styles.image3} />
       </View>
@@ -227,9 +227,9 @@ const Login = ({ navigation }) => {
               style={{ marginLeft: 33, marginTop: 2.5 }} />
             <Text style={{ marginLeft: 9, color: '#337CFF', fontSize: 12, fontWeight: '500' }}>Remember me</Text>
             <Text style={styles.text3}
-            // onPress={() => {
-            //   navigation.navigate('ForgotPassword')
-            // }}
+            onPress={() => {
+              navigation.navigate('ForgotPassword')
+            }}
             >Forgot password?</Text>
           </View>
 
@@ -268,18 +268,8 @@ const Login = ({ navigation }) => {
               onPress={() => { navigation.navigate('SignUp') }}
             > Sign Up</Text>
           </View>
-          {/* <TouchableOpacity style={{backgroundColor:'red',width:50,padding:10,alignSelf:'center'}}
-onPress={signOut}>
-  <Text>logout</Text>
-</TouchableOpacity> */}
-
-
-
-
         </ScrollView>
-
       </View>
-
     </View>
 
   )

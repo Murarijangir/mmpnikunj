@@ -20,6 +20,12 @@ const anil = [
     {
         Language: "Canada"
     },
+    {
+        Language:"jappness"
+    },
+    {
+        Language:"jappness"
+    },
 ]
 
 const SignUp = ({ navigation }) => {

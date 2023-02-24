@@ -29,9 +29,6 @@ const CommonTextInput = ({
       <View style={[styles.view, { ...style1 }]}>
         <Image source2={source2} style={[styles.img, { ...style2 }]} />
 
-
-
-
         <TextInput
           placeholder={placeholder}
           value={value}

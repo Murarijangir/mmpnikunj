@@ -6,7 +6,7 @@ import Wallet from '../Screens/Wallet';
 import Profile from '../Screens/Profile';
 import { Image } from 'react-native';
 import { Images } from '../Constant/Images';
-
+import { View } from 'react-native';
 
 
 
@@ -15,8 +15,8 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = ({navigation}) => {
 
     return (
-
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle:{backgroundColor:'#EFF2F4',borderWidth:0} }}
+        >
             <Tab.Screen
                 name='Home'
                 component={Home}

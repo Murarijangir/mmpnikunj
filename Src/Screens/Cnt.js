@@ -275,19 +275,14 @@ const styles = StyleSheet.create({
     },
 
     updateImage: {
-
         width: 13,
-
         height: 8,
         marginEnd:21
-
     },
-
     component: {
-
         elevation: 10,
 
-        // height: 300,
+        height: 300,
 
         alignSelf: 'center',
 

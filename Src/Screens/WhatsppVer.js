@@ -42,7 +42,7 @@ const WhatsppVer = ({ navigation }) => {
 
           >
             <Text style={{
-              color: '#757373',
+              color: '#969393',
               fontSize: 16,
               textAlign: 'center',
             }}>

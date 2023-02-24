@@ -1,9 +1,8 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import CommonArea from '../Components/CommonArea'
 import { Images } from '../Constant/Images'
 import CommonButton from '../Components/CommonButton'
-import CommonMoney from '../Components/CommonMoney'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 const DATA = [
@@ -52,8 +51,25 @@ const DATA = [
     title3: 'USD',
     title4: 'INR',
   },
+  {
+    id: '04',
+    title: 'From',
+    name: 'Bostan',
+    title1: 'To',
+    name1: 'London',
+    title2: 'In Currency',
+    src: require('../Assests/Image/background.png'),
+    src0: require('../Assests/Image/send.png'),
+    src1: require('../Assests/Image/Usa.png'),
+    src3: require('../Assests/Image/India.png'),
+    src2: require('../Assests/Image/Arrowd.png'),
+    title3: 'USD',
+    title4: 'INR',
+  },
 ];
 const Item = ({ item, onPress }) => (
+
+
   <TouchableOpacity style={styles.touch}>
 
     <View style={{ flex: 1, }}>
@@ -84,7 +100,7 @@ const Item = ({ item, onPress }) => (
       />
     </View>
 
-    <View style={{ flex: 1.40, marginRight: 10 }}>
+    <View style={{ flex: 1.40, marginHorizontal:10 }}>
       <Text style={styles.currency}>{item.title2}</Text>
       <View style={styles.view3}>
         <Image source={item.src1} style={styles.flagImg} />
@@ -96,9 +112,20 @@ const Item = ({ item, onPress }) => (
       </View>
     </View>
   </TouchableOpacity>
+
+
+
+
 );
 
 const Mypost = ({ navigation }) => {
+  const [show, setShow] = useState(true)
+
+  const onChange = () => {
+    setShow(!show)
+  }
+
+
   return (
     <View style={{ flex: 1 }}>
       <CommonArea
@@ -106,17 +133,37 @@ const Mypost = ({ navigation }) => {
         source2={Images.Hembarg}
         style={styles.header} />
       <View style={styles.container}>
+
         <View style={styles.buttonback}>
           <CommonButton
             title='Send Money'
-            style={styles.commonbotton}
-            style1={styles.btntxt} />
+            style={{
+              width: '50%',
+              padding: 10,
+              marginTop: 0,
+              marginHorizontal: 0,
+              borderRadius: 10,
+              backgroundColor: show ? "#517FFF" : "#EBEBEB"
+            }}
+            style1={{color: show ?  "#FFF0F0":"#969393" ,fontSize:14,fontWeight:'400'}}
+            onPress={() => { onChange(true) }}
+          />
           <CommonButton
             title='Recieve Money'
-            style={styles.commonbotton}
-            style1={styles.btntxt}
-            onPress={() => { navigation.navigate('PostRR') }} />
+            style={{
+              width: '50%',
+              padding: 10,
+              marginTop: 0,
+              marginHorizontal: 0,
+              borderRadius: 10,
+              backgroundColor: show ? "#EBEBEB" : "#517FFF"
+            }}
+            style1={{color: show ? "#969393" : "#FFF0F0",fontSize:14,fontWeight:'400'}}
+          onPress={() => { onChange(false) }}
+          />
         </View>
+
+{show?
         <View>
           <FlatList
             data={DATA}
@@ -126,7 +173,18 @@ const Mypost = ({ navigation }) => {
           >
           </FlatList>
         </View>
-
+:
+null
+//         <View>
+//           <FlatList
+//             data={DATA}
+//             renderItem={({ item }) => <Item item={item} />
+//             }
+//             keyExtractor={item => item.id}
+//           >
+//           </FlatList>
+//         </View>
+}
       </View>
     </View>
   )
@@ -148,22 +206,30 @@ const styles = StyleSheet.create({
   buttonback: {
     marginTop: 30,
     flexDirection: 'row',
-    height: hp('5.1%'),
+    // height: hp('5.1%'),
+    padding: 3,
     backgroundColor: '#EBEBEB',
-    marginHorizontal: 30,
+    marginHorizontal: 33,
     alignItems: 'center',
     borderRadius: 10,
     justifyContent: 'space-evenly'
   },
   commonbotton: {
-    height: hp('4.5%'),
-    width: wp('40%'),
+    // height: hp('4.5%'),
+    // width: wp('40%'),
+    width: '50%',
+    padding: 10,
     marginTop: 0,
     marginHorizontal: 0
+
   },
   btntxt: {
     fontSize: 14,
     fontWeight: '400'
+  },
+  btntxt1: {
+    fontSize: 14,
+    fontWeight: '400',
   },
   touch: {
     flexDirection: 'row',
@@ -198,9 +264,11 @@ const styles = StyleSheet.create({
   close: {
     marginTop: 25,
     marginHorizontal: 0,
-    height: 31,
-    width: wp('22%'),
-    borderRadius: 5
+    // height: 31,
+    // width: wp('22%'),
+    borderRadius: 5,
+    padding: 5,
+    backgroundColor:'#6399F9'
   },
   btntext: {
     fontSize: 12,
@@ -215,10 +283,11 @@ const styles = StyleSheet.create({
   delete: {
     marginTop: 25,
     marginHorizontal: 0,
-    height: 31,
-    width: wp('25%'),
+    // height: 31,
+    // width: wp('25%'),
     borderRadius: 5,
-    backgroundColor: '#F47878'
+    backgroundColor: '#F47878',
+    padding: 5
   },
   currency: {
     marginTop: 67,
